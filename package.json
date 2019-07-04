@@ -1,0 +1,16 @@
+{
+  "name": "custom-events",
+  "version": "1.0.0",
+  "description": "",
+  "main": "register.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@storybook/addons": "^5.1.9",
+    "@storybook/core-events": "^5.1.9",
+    "react": "^16.8.6"
+  }
+}
