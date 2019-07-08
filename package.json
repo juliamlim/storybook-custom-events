@@ -1,10 +1,11 @@
 {
-  "name": "custom-events",
+  "name": "storybook-custom-events",
   "version": "1.0.0",
   "description": "",
   "main": "register.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir dist",
+    "watch": "nodemon --exec 'npm run build' ./src/*.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +13,12 @@
     "@storybook/addons": "^5.1.9",
     "@storybook/core-events": "^5.1.9",
     "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "nodemon": "^1.19.1"
   }
 }
