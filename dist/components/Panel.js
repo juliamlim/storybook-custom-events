@@ -5,13 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Panel = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
-var _shared = require("../shared");
+var _coreEvents = require("@storybook/core-events");
+
+var _core = require("@emotion/core");
+
+var _UI = require("./UI");
+
+var _constants = require("../constants");
 
 var _Event = require("./Event");
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -53,16 +59,31 @@ function (_React$Component) {
     _this.state = {
       events: []
     };
+    _this.api = props.api || {};
     _this.addBlankEvent = _this.addBlankEvent.bind(_assertThisInitialized(_this));
+    _this.storyChanged = _this.storyChanged.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Panel, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      this.state = {
-        events: this.getParams()
-      };
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.api.on(_coreEvents.STORY_RENDERED, this.storyChanged);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.api.off(_coreEvents.STORY_RENDERED, this.storyChanged);
+    }
+  }, {
+    key: "storyChanged",
+    value: function storyChanged(id) {
+      this.setState({
+        events: []
+      });
+      this.setState({
+        events: this.api.getParameters(id, _constants.ADDON_ID) || []
+      });
     }
   }, {
     key: "addBlankEvent",
@@ -75,46 +96,21 @@ function (_React$Component) {
       });
     }
   }, {
-    key: "getParams",
-    value: function getParams() {
-      var api = this.props.api;
-      var current = api.getCurrentStoryData();
-      return (current ? api.getParameters(current.id, _shared.PARAM_KEY) : []) || [];
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          api = _this$props.api,
-          active = _this$props.active;
+      var active = this.props.active;
       var events = this.state.events;
-      return active ? _react["default"].createElement("div", null, events.map(function (event, index) {
-        return _react["default"].createElement(_Event.Event, {
-          key: index,
-          event: event,
-          emit: api.emit
-        });
-      }), _react["default"].createElement("button", {
-        onClick: this.addBlankEvent
-      }, "Add Custom Event")) : null;
+      return active ? _react["default"].createElement(_UI.Flex, null, _react["default"].createElement(_UI.Card, {
+        className: "secondary"
+      }, _react["default"].createElement("h1", null, "Samples"), events.map(function (event, index) {
+        return _react["default"].createElement(_UI.Button, {
+          className: "secondary"
+        }, event.name);
+      })), _react["default"].createElement(_UI.Card, null, _react["default"].createElement("h1", null, "Edit"))) : null;
     }
   }]);
 
   return Panel;
-}(_react["default"].Component); // const addEvent = () => {
-// }
-// export const Panel = (props) => {
-//     const { api } = props;
-//     const current = api.getCurrentStoryData();
-//     const params = ( current ? api.getParameters( current.id, PARAM_KEY ) : [] ) || [];
-//     const addEvent = () => {
-//         params.push({ name: '', payload: '' });
-//     }
-//     return <div>
-//         { params.map((event, index) => <Event key={index} api={api} event={event} />) }
-//         <button onClick={addEvent}>Add Custom Event</button>
-//     </div>;
-// }
-
+}(_react["default"].Component);
 
 exports.Panel = Panel;

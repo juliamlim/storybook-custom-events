@@ -1,7 +1,7 @@
 import React from 'react';
 import addons from '@storybook/addons';
 
-import {ADDON_ID, PANEL_ID} from './shared';
+import {ADDON_ID, PANEL_ID} from './constants';
 
 import { Panel } from './components/Panel';
 
