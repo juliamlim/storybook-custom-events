@@ -38,16 +38,14 @@ function parsePayload(payload) {
 }
 
 var Event = function Event(props) {
-  var _ref = props || {},
-      name = _ref.name,
-      payload = _ref.payload;
+  var event = props.event;
 
-  var _useState = (0, _react.useState)(name || ''),
+  var _useState = (0, _react.useState)(event.name),
       _useState2 = _slicedToArray(_useState, 2),
       eventName = _useState2[0],
       setEventName = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(stringifyPayload(payload) || ''),
+  var _useState3 = (0, _react.useState)(stringifyPayload(event.payload)),
       _useState4 = _slicedToArray(_useState3, 2),
       eventPayload = _useState4[0],
       setEventPayload = _useState4[1];
@@ -55,30 +53,59 @@ var Event = function Event(props) {
   var emitEvent = function emitEvent() {
     var emit = props.emit;
     emit(_constants.EMIT_EVENT, {
-      name: eventName,
-      payload: parsePayload(eventPayload)
+      name: event.name,
+      payload: parsePayload(event.payload)
     });
   };
 
-  return _react["default"].createElement(_UI.Card, null, _react["default"].createElement("label", null, "Event"), _react["default"].createElement(_UI.Input, {
+  return _react["default"].createElement(_UI.Card, {
+    className: props.className
+  }, _react["default"].createElement("label", null, "Event Name"), props.disabled ? _react["default"].createElement(_UI.H3, null, name) : _react["default"].createElement(_UI.Input, {
     type: "text",
-    value: eventName,
-    onChange: function onChange(e) {
-      return setEventName(e.target.value);
-    }
-  }), _react["default"].createElement("label", null, "Payload"), _react["default"].createElement(_UI.Textarea, {
-    value: eventPayload,
+    value: event.name
+  }), _react["default"].createElement("label", null, "Event Detail"), _react["default"].createElement(_UI.Textarea, {
+    value: stringifyPayload(event.payload),
     rows: "8",
-    onChange: function onChange(e) {
-      return setEventPayload(e.target.value);
-    }
+    disabled: !!props.disabled
   }), _react["default"].createElement(_UI.Flex, {
     className: "row"
   }, _react["default"].createElement(_UI.Button, {
     onClick: emitEvent
-  }, "Emit"), _react["default"].createElement(_UI.Button, {
-    className: "error"
-  }, "Delete")));
+  }, "Emit"), props.children));
 };
+/**
+ * 
+
+export const Event = (props) => {
+    const { children, editable = false, event = {} } = props;
+
+    const [eventName, setEventName] = useState(event.name);
+    const [eventPayload, setEventPayload] = useState(stringifyPayload(event.payload));
+
+    const emitEvent = () => {
+        const { emit } = props;
+        emit(EMIT_EVENT, { eventName, payload: parsePayload(eventPayload) });
+    }
+
+    return (
+        <Card {...props}>
+            <label>Event Name</label>
+            { editable ? <Input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} /> : <H3>{event.name}</H3>}
+            <label>Event Name</label>
+            { editable 
+                ? <Textarea rows="10" value={eventPayload} onChange={(e) => setEventPayload(e.target.value)}></Textarea>
+                : <Textarea rows="8" value={stringifyPayload(event.payload)}></Textarea>
+            }
+            <Flex>
+                <Button onClick={emitEvent}>Emit</Button>
+                { children }
+            </Flex>
+        </Card>
+    );
+}
+
+ * 
+ */
+
 
 exports.Event = Event;

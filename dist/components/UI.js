@@ -3,11 +3,21 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Textarea = exports.Input = exports.Button = exports.Flex = exports.Card = void 0;
+exports.H3 = exports.Textarea = exports.Input = exports.Button = exports.Flex = exports.Card = void 0;
 
 var _styled = _interopRequireDefault(require("@emotion/styled"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n    margin: ", "px 0;\n    font-weight: bold;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n    ", "\n    resize: vertical;\n"]);
@@ -30,7 +40,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n    margin: ", "px ", "px 0;\n    padding: ", "px ", "px;\n    color: white;\n    font-weight: bold;\n    background-color: ", ";\n    border: none;\n    border-radius: ", "px;\n    &.secondary {\n        color: ", ";\n        background-color: transparent;\n        border: 1px solid ", ";\n    }\n    &.error {\n        background-color: ", ";\n    }\n"]);
+  var data = _taggedTemplateLiteral(["\n    flex: 1 0 0;\n    margin: ", "px 0 0 ", "px;\n    padding: ", "px ", "px;\n    color: white;\n    font-weight: bold;\n    background-color: ", ";\n    border: none;\n    border-radius: ", "px;\n    transition: background-color 0.2s ease;\n    border: 1px solid ", ";\n    &.outline {\n        color: ", ";\n        background-color: transparent;\n    }\n    &.secondary {\n        color: ", ";\n        background-color: transparent;\n        border-color: ", ";\n        &.active {\n            color: white;\n            background-color: ", ";\n        }\n    }\n    &.error {\n        background-color: ", ";\n    }\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -50,7 +60,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    flex: 1 0 0;\n    max-width: 550px;\n    display: inline-block;\n    padding: ", "px;\n    margin: ", "px;\n    border-radius: ", "px;\n    box-shadow: 0 5px 15px -10px black;\n    &.secondary {\n        background-color: ", ";\n        box-shadow: none;\n    }\n    @media(max-width: 860px) {\n        flex: 1 100%;\n    }\n"]);
+  var data = _taggedTemplateLiteral(["\n    flex: 1 0 0;\n    max-width: 550px;\n    margin: ", "px;\n    padding: ", "px;\n    border-radius: ", "px;\n    box-shadow: 0 5px 15px -10px black;\n    &.secondary {\n        background-color: ", ";\n        box-shadow: none;\n        border: 1px solid #ccc;\n    }\n    @media(max-width: 860px) {\n        flex: 1 100%;\n    }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -77,7 +87,7 @@ var Flex = _styled["default"].div(_templateObject2());
 
 exports.Flex = Flex;
 
-var Button = _styled["default"].button(_templateObject3(), spacing * 3, spacing * 3, spacing * 2, spacing * 4, colors.primary, spacing, colors.secondary, colors.secondary, colors.error);
+var Button = _styled["default"].button(_templateObject3(), spacing * 3, spacing * 3, spacing * 2, spacing * 4, colors.primary, spacing, colors.primary, colors.primary, colors.secondary, colors.secondary, colors.secondary, colors.error);
 
 exports.Button = Button;
 var forms = "\n    width: 100%;\n    display: block;\n    margin: ".concat(spacing, "px 0 ").concat(spacing * 2, "px;\n    padding: ").concat(spacing, "px ").concat(spacing + 2, "px;\n    background-color: transparent;\n    border: 1px solid ").concat(colors.grey, ";\n    border-radius: ").concat(spacing, "px;\n");
@@ -89,3 +99,7 @@ exports.Input = Input;
 var Textarea = _styled["default"].textarea(_templateObject5(), forms);
 
 exports.Textarea = Textarea;
+
+var H3 = _styled["default"].h3(_templateObject6(), spacing * 2);
+
+exports.H3 = H3;

@@ -12,14 +12,14 @@ const spacing = 4;
 export const Card = styled.div`
     flex: 1 0 0;
     max-width: 550px;
-    display: inline-block;
-    padding: ${spacing * 3}px;
     margin: ${spacing * 3}px;
+    padding: ${spacing * 3}px;
     border-radius: ${spacing}px;
     box-shadow: 0 5px 15px -10px black;
     &.secondary {
         background-color: ${colors.grey};
         box-shadow: none;
+        border: 1px solid #ccc;
     }
     @media(max-width: 860px) {
         flex: 1 100%;
@@ -34,17 +34,28 @@ export const Flex = styled.div`
 `;
 
 export const Button = styled.button`
-    margin: ${spacing * 3}px ${spacing * 3}px 0;
+    flex: 1 0 0;
+    margin: ${spacing * 3}px 0 0 ${spacing * 3}px;
     padding: ${spacing * 2}px ${spacing * 4}px;
     color: white;
     font-weight: bold;
     background-color: ${colors.primary};
     border: none;
     border-radius: ${spacing}px;
+    transition: background-color 0.2s ease;
+    border: 1px solid ${colors.primary};
+    &.outline {
+        color: ${colors.primary};
+        background-color: transparent;
+    }
     &.secondary {
         color: ${colors.secondary};
         background-color: transparent;
-        border: 1px solid ${colors.secondary};
+        border-color: ${colors.secondary};
+        &.active {
+            color: white;
+            background-color: ${colors.secondary};
+        }
     }
     &.error {
         background-color: ${colors.error};
@@ -68,4 +79,9 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
     ${forms}
     resize: vertical;
+`;
+
+export const H3 = styled.h3`
+    margin: ${spacing * 2}px 0;
+    font-weight: bold;
 `;
